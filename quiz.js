@@ -36,11 +36,11 @@ var timer;
 function start() {
 
     timeLeft = 60;
-    document.getElementById("timeLeft").HTML = timeLeft;
+    document.getElementById("timeLeft").innerHTML = timeLeft;
 
     timer = setInterval(function () {
         timeLeft--;
-        document.getElementById("timeLeft").HTML = timeLeft;
+        document.getElementById("timeLeft").innerHTML = timeLeft;
         //proceed to end the game function when timer is below 0 at any time
         if (timeLeft <= 0) {
             clearInterval(timer);
@@ -57,12 +57,12 @@ function endGame() {
 
     var quizContent = `
 <h2>Game over!</h2>
-<h3>You got a  + score +  /100!</h3>
+<h3>You got a ` + score + ` /100!</h3>
 <h3>That means you got ` + score / 20 + ` questions correct!</h3>
 <input type="text" id="name" placeholder="First name"> 
 <button onclick="setScore()">Set score!</button>`;
 
-    document.getElementById("quizBody").HTML = quizContent;
+    document.getElementById("quizBody").innerHTML = quizContent;
 }
 
 //store the scores on local storage
@@ -82,7 +82,7 @@ function getScore() {
 
 `;
 
-    document.getElementById("quizBody").HTML = quizContent;
+    document.getElementById("quizBody").innerHTML = quizContent;
 }
 
 //clears the score name and value in the local storage if the user selects 'clear score'
@@ -101,7 +101,7 @@ function resetGame() {
     timeLeft = 0;
     timer = null;
 
-    document.getElementById("timeLeft").HTML = timeLeft;
+    document.getElementById("timeLeft").innerHTML = timeLeft;
 
     var quizContent = `
 <h1>
@@ -112,7 +112,7 @@ function resetGame() {
 </h3>
 <button onclick="start()">Start!</button>`;
 
-    document.getElementById("quizBody").HTML = quizContent;
+    document.getElementById("quizBody").innerHTML = quizContent;
 }
 
 //deduct 15seconds from the timer if user chooses an incorrect answer
@@ -150,5 +150,5 @@ function next() {
     }
 
 
-    document.getElementById("quizBody").HTML = quizContent;
+    document.getElementById("quizBody").innerHTML = quizContent;
 }
