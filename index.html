@@ -3,37 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <link href="quiz.css" rel="stylesheet" type="text/css">
-    <script src="quiz.js" type="text/javascript"></script>
-    <title>code Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="quiz.css">
+
+    <title>Code-Quiz</title>
 </head>
 
 <body>
-    <div id="nav">
-        <!--view scores link on the top left of nav bar -->
-        <div class="left">
-            <a onclick="getScore()" href="#">
-                <h4>view Highscore</h4>
-            </a>
-        </div>
-        <!--countdown timer on the top right of nav bar-->
-        <div class="right">
-            <h4>Time: <span id="timeLeft">0</span></h4>
-        </div>
-    </div>
-    <!--main body of Quiz-->
-    <div id="quiz">
-        <div id="quizBody">
-            <h1>
-                javascript Quiz!
-            </h1>
-            <h3>
-                Click to play!
-            </h3>
-            <button onclick="start()">Start!</button>
+
+    <nav class="navbar navbar-light bg-light">
+      
+        <a class="navbar-brand">Time:30 seconds<p class="time"></p></a>
+    </nav>
+    <div id="container">
+
+        <div id="quiz">
+            <h1>Harry potter</h1>
+            <hr style="margin-bottom: 20px">
+            <button class="StartQuiz col-10 col-md-3 mx-auto mb-5 bg-primary text-white" id="startQuiz">START</button>
+            <p id="question"></p>
+
+            <div class="buttons">
+                <button id="btn0"><span id="choice0"></span></button>
+                <button id="btn1"><span id="choice1"></span></button>
+                <button id="btn2"><span id="choice2"></span></button>
+                <button id="btn3"><span id="choice3"></span></button>
+            </div>
+
+           
         </div>
     </div>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="quiz.js"></script>
 </body>
 
 </html>
