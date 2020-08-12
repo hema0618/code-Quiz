@@ -12,36 +12,30 @@
 
     <title>Code-Quiz</title>
 </head>
-
-<body>
-
-    <nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light">
       
-        <a class="navbar-brand" id ="timer">Time:30 seconds<p class="time"></p></a>
-    </nav>
-    <div id="container">
+    <a class="navbar-brand" id ="timer">Time:30 seconds<p class="time"></p></a>
+</nav>
+<div id="container">
 
-        <div id="quiz">
-            <h1>Harry potter</h1>
-            <hr style="margin-bottom: 20px">
-            <button class="StartQuiz col-10 col-md-3 mx-auto mb-5 bg-primary text-white" id="startQuiz">START</button>
-            <p id="question"></p>
+    <div id="quiz">
+        <h1>Harry potter</h1>
+        <hr style="margin-bottom: 20px">
+        <button class="StartQuiz col-10 col-md-3 mx-auto mb-5 bg-primary text-white" id="startQuiz">StartQuiz</button>
+        <p id="question"></p>
 
-            <div class="buttons">
-                <button id="btn0"><span id="choice0"></span></button>
-                <button id="btn1"><span id="choice1"></span></button>
-                <button id="btn2"><span id="choice2"></span></button>
-                <button id="btn3"><span id="choice3"></span></button>
-            </div>
-
-            <footer>
-                <p id="progress">Question x of y</p>
-            </footer>
+        <div class="buttons">
+            <button id="btn0"><span id="choice0"></span></button>
+            <button id="btn1"><span id="choice1"></span></button>
+            <button id="btn2"><span id="choice2"></span></button>
+            <button id="btn3"><span id="choice3"></span></button>
         </div>
+
+        <footer>
+            <p id="progress">Question x of y</p>
+        </footer>
     </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="quiz.js"></script>

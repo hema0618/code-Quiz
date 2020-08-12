@@ -1,4 +1,3 @@
-
 $("#startQuiz").on("click", function () {
     var sec = 30;
     var time = setInterval(myTimer, 1000);
