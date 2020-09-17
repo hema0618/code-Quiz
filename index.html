@@ -14,30 +14,41 @@
     <title>Code-Quiz</title>
 </head>
 <body>
-<nav class="navbar navbar-light bg-light">
-      
-    <a class="navbar-brand" id ="timer">Time:30 seconds<p class="time"></p></a>
-</nav>
-<div id="container">
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">How well do you know the show, "The Office?"</h1> <br>
+            <p class="lead">Click the start button below to begin the quiz!</p> <br>
+            <hr class="my-4">
 
-    <div id="quiz">
-        <h1>Harry potter</h1>
-        <hr style="margin-bottom: 20px">
-        <button class="StartQuiz col-10 col-md-3 mx-auto mb-5 bg-primary text-white" id="startQuiz">StartQuiz</button>
-        <p id="question"></p>
-
-        <div class="buttons">
-            <button id="btn0"><span id="choice0"></span></button>
-            <button id="btn1"><span id="choice1"></span></button>
-            <button id="btn2"><span id="choice2"></span></button>
-            <button id="btn3"><span id="choice3"></span></button>
+            <a class="btn btn-primary btn-lg" id="start" href="#" role="button">Start</a>
+        </div>
+        <div id="quiz">
+            <div id="question">Question</div>
+            <div id="answer1">Answer1</div>
+            <div id="answer2">Answer2</div>
+            <div id="answer3">Answer3</div>
+            <div id="answer4">Answer4</div>
+        </div>
+        <br>
+        <div>
+            <h3 id="score"> Score:</h3>
+        </div>
+        <div>
+            <h3 id="timer">Timer:</h3>
         </div>
 
-        <footer>
-            <p id="progress">Question x of y</p>
-        </footer>
+        
+        <div id="results"></div>
+
+        <!-- View Highscore - to the left top of page -->
+
+
+        <!-- <h3> High Score </h3> -->
+        <!-- Timer to the right side of page-->
+        <!-- <h4>Timer:</h4> -->
+
     </div>
-</div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="quiz.js"></script>
