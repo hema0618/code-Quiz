@@ -1,112 +1,190 @@
-$(document).ready(function() {
+function initQuiz() {
 
+    let timeRemaining = 0;
+    const startButtonEl = document.getElementById("start-button");
+    const timeRemainingEl = document.getElementById("time-remaining");
+    const finalScoreEl = document.getElementById("final-score");
+    const numQuestions = questions.length;
+    const landingContainerEl = document.getElementById("landing-container");
+    const quizContainerEl = document.getElementById("quiz-container");
+    const finalContainerEl = document.getElementById("final-container");
+    const submitButtonEl = document.getElementById("submit-initials");
+    const highscoreButtonEl = document.getElementById("highscore-button");
+    const highscoreContainerEl = document.getElementById("highscore-container");
+    let highScores = [];
 
-$("#startQuiz").on("click", function () {
-    var sec = 30;
-    var time = setInterval(myTimer, 1000);
-
-    function myTimer() {
-        document.getElementById('timer').innerHTML = sec + "sec left";
-        sec--;
-        if (sec == -1) {
-            clearInterval(time);
-
-        }
+    if (JSON.parse(localStorage.getItem('scores')) !== null) {
+        highScores = JSON.parse(localStorage.getItem("scores"));
     }
 
-    function Quiz(questions) {
+    function startQuiz() {
+        landingContainerEl.setAttribute("class", "container d-none");
+        let rowEl = null;
+        let colEl = null;
+        let headerEl = null;
+        let buttonEl = null;
+        quizContainerEl.setAttribute("class", "container");
+        let currentQuestion = 1;
+        let score = 0;
 
-        this.score = 0;
-        this.questions = questions;
-        this.questionIndex = 0;
-    }
+        timeRemaining = numQuestions * 15;
+        timeRemainingEl.setAttribute("value", timeRemaining);
 
-    Quiz.prototype.getQuestionIndex = function () {
-        return this.questions[this.questionIndex];
-    }
+        let myInterval = setInterval(function () {
+            if (timeRemaining < 1) {
+                clearInterval(myInterval);
 
-    Quiz.prototype.guess = function (answer) {
-        if (this.getQuestionIndex().isCorrectAnswer(answer)) {
-            this.score++;
-        }
+                quizContainerEl.setAttribute("class", "container d-none");
+                finalContainerEl.setAttribute("class", "container");
+                return;
+            }
+            timeRemaining = timeRemaining - 1;
+            timeRemainingEl.setAttribute("value", timeRemaining);
+        }, 1000);
+        let clickTimeout = false;
+        function generateQuestion(questionNum) {
 
-        this.questionIndex++;
-    }
+            quizContainerEl.innerHTML = "";
+            rowEl = document.createElement("div");
+            rowEl.setAttribute("class", "row");
+            quizContainerEl.append(rowEl);
 
-    Quiz.prototype.isEnded = function () {
-        return this.questionIndex === this.questions.length;
-    }
+            colEl = document.createElement("div");
+            colEl.setAttribute("class", "col-0 col-sm-2");
+            rowEl.append(colEl);
 
+            colEl = document.createElement("div");
+            colEl.setAttribute("class", "col-12 col-sm-8");
+            rowEl.append(colEl);
 
-    function Question(text, choices, answer) {
-        this.text = text;
-        this.choices = choices;
-        this.answer = answer;
-    }
+            colEl = document.createElement("div");
+            colEl.setAttribute("class", "col-0 col-sm-2");
+            rowEl.append(colEl);
 
-    Question.prototype.isCorrectAnswer = function (choice) {
-        return this.answer === choice;
-    }
+            colEl = rowEl.children[1];
+            rowEl = document.createElement("div");
+            rowEl.setAttribute("class", "row mb-3");
+            colEl.append(rowEl);
 
+            colEl = document.createElement("div");
+            colEl.setAttribute("class", "col-12");
+            rowEl.append(colEl);
 
-    function populate() {
-        if (quiz.isEnded()) {
-            showScores();
-        }
-        else {
+            headerEl = document.createElement("h2");
+            headerEl.innerHTML = questions[questionNum - 1].title;
+            colEl.append(headerEl);
 
-            var element = document.getElementById("question");
-            element.innerHTML = quiz.getQuestionIndex().text;
+            colEl = quizContainerEl.children[0].children[1];
+            for (let i = 0; i < 4; i++) {
+                let rowEl = document.createElement("div");
+                rowEl.setAttribute("class", "row mb-1");
+                colEl.append(rowEl);
 
-            var choices = quiz.getQuestionIndex().choices;
-            for (var i = 0; i < choices.length; i++) {
-                var element = document.getElementById("choice" + i);
-                element.innerHTML = choices[i];
-                guess("btn" + i, choices[i]);
+                let colEl2 = document.createElement("div");
+                colEl2.setAttribute("class", "col-12");
+                rowEl.append(colEl2);
+
+                buttonEl = document.createElement("button");
+                buttonEl.setAttribute("class", "btn btn-primary");
+                buttonEl.setAttribute("type", "button");
+                buttonEl.innerHTML = questions[currentQuestion - 1].choices[i];
+                colEl2.append(buttonEl);
+                buttonEl.addEventListener("click", function () {
+                    if (clickTimeout) {
+                        return;
+                    }
+                    clickTimeout = true;
+                    clearInterval(myInterval);
+                    let colEl = quizContainerEl.children[0].children[1];
+                    let rowEl = document.createElement("div");
+                    rowEl.setAttribute("class", "row border-top");
+                    colEl.append(rowEl);
+
+                    colEl = document.createElement("div");
+                    colEl.setAttribute("class", "col-12");
+                    rowEl.append(colEl);
+
+                    let parEl = document.createElement("p");
+                    colEl.append(parEl);
+                    if (this.innerHTML === questions[currentQuestion - 1].answer) {
+                        parEl.innerHTML = "Correct!";
+                    } else {
+                        parEl.innerHTML = "Incorrect";
+                        timeRemaining = timeRemaining - 15;
+                        if (timeRemaining < 0) {
+                            timeRemaining = 0;
+                        }
+                        timeRemainingEl.setAttribute("value", timeRemaining);
+                    }
+                    currentQuestion++;
+                    if (currentQuestion > questions.length) {
+                        score = timeRemaining;
+                    }
+                    setTimeout(function () {
+
+                        if (currentQuestion > questions.length) {
+                            quizContainerEl.setAttribute("class", "container d-none");
+                            finalContainerEl.setAttribute("class", "container");
+                            finalScoreEl.setAttribute("value", score);
+                        } else {
+                            generateQuestion(currentQuestion);
+                            clickTimeout = false;
+                            myInterval = setInterval(function () {
+                                if (timeRemaining < 1) {
+                                    clearInterval(myInterval);
+                                    quizContainerEl.setAttribute("class", "container d-none");
+                                    finalContainerEl.setAttribute("class", "container");
+                                    return;
+                                }
+                                timeRemaining = timeRemaining - 1;
+                                timeRemainingEl.setAttribute("value", timeRemaining);
+                            }, 1000);
+                        }
+                    }, 2000);
+                });
             }
 
-            showProgress();
+
         }
-    };
-
-
-    function guess(id, guess) {
-        var button = document.getElementById(id);
-        button.onclick = function () {
-            quiz.guess(guess);
-            populate();
+        function saveHighScore() {
+            let initialsEl = document.getElementById("initials-entry");
+            let newHighScore = {
+                initials: initialsEl.value,
+                highScore: score
+            };
+            console.log(newHighScore);
+            highScores.push(newHighScore);
+            console.log(highScores);
+            localStorage.setItem("scores", JSON.stringify(highScores));
         }
-    };
+        submitButtonEl.addEventListener("click", saveHighScore);
 
+        generateQuestion(currentQuestion);
+    }
 
-    function showProgress() {
-        var currentQuestionNumber = quiz.questionIndex + 1;
-        var element = document.getElementById("progress");
-        element.innerHTML = "Question " + currentQuestionNumber + " of " + quiz.questions.length;
-    };
+    startButtonEl.addEventListener("click", startQuiz);
 
-    function showScores() {
-        var gameOverHTML = "<h1>High Score</h1>";
-        gameOverHTML += "<h2 id='score'> Your score: " + quiz.score + "</h2>";
-        var element = document.getElementById("quiz");
-        element.innerHTML = gameOverHTML;
-    };
+    highscoreButtonEl.addEventListener("click", function () {
+        landingContainerEl.setAttribute("class", "container d-none");
+        quizContainerEl.setAttribute("class", "container d-none");
+        finalContainerEl.setAttribute("class", "container d-none");
+        highscoreContainerEl.setAttribute("class", "container");
+        let colEl = document.getElementById("highscore-table");
+        for (i = 0; i < highScores.length; i++) {
+            let rowEl = document.createElement("div");
+            rowEl.setAttribute("class", "row mb-1");
+            colEl.append(rowEl);
 
+            let colEl2 = document.createElement("div");
+            colEl2.setAttribute("class", "col-12 text-center");
+            rowEl.append(colEl2);
 
-    var questions = [
-        new Question(" How does Harry manage to breathe underwater during the second task of the Triwizard Tournament?", ["He transfigures into a shark", "He kissed a mermaid", " He eats gillyweed", "He performs a bubble-head charm"], "He eats gillyweed"),
-        new Question(" What is the name of Fred and George’s joke shop?", ["Weasley Joke Emporium", "Weasleys’ Wizard Wheezes ", "Fred & George’s Wonder Emporium ", "Zonko’s Joke Shop"], "Weasleys’ Wizard Wheezes"),
-        new Question(" Which of these is NOT one of the Unforgivable Curses?", [" Cruciatus Curse", " Imperius Curse", " Sectumsempra", "Avada Kedavra"], " Sectumsempra"),
-        new Question(" Who played Lord Voldemort in the movies?", ["Jeremy Irons", "Tom Hiddleston", "Gary Oldman", " Ralph Fiennes"], "Ralph Fiennes"),
-        new Question(" Who guards the entrance to the Gryffindor common room?", ["The Grey Lady", " The Fat Friar", "The Bloddy Baron", " The Fat lady"]," The Fat lady"),
+            let parEl = document.createElement("div");
+            parEl.innerHTML = "Initials: " + highScores[i].initials + "   Score: " + highScores[i].highScore;
+            colEl2.append(parEl);
+        }
+    });
 
-    ];
+}
 
-    var quiz = new Quiz(questions);
-
-
-    populate();
-
-
-});
-});
+initQuiz();

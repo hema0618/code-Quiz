@@ -1,57 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="Description" content="Enter your description here" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <link rel="stylesheet" href="quiz.css">
-
-    <title>Code-Quiz</title>
+    <title>Code Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./quiz.css">
 </head>
 <body>
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">How well do you know the show, "The Office?"</h1> <br>
-            <p class="lead">Click the start button below to begin the quiz!</p> <br>
-            <hr class="my-4">
-
-            <a class="btn btn-primary btn-lg" id="start" href="#" role="button">Start</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container navbar-container mx-0">
+            <div class="row w-100">
+                <div class="col-4 col-md-2">
+                    <button type="button" id="highscore-button" class="btn btn-info">View High Scores</button> 
+                </div>
+                <div class="col-3 col-md-7"></div>
+                <div class="col-5 col-md-3">
+                    <form>
+                        <div class="form-group row">
+                            <label for="time-remaining" class="col-sm-7 col-form-label">Time Remaining</label>
+                            <div class="col-sm-5">
+                                <input type="number" readonly class="form-control" id="time-remaining" placeholder="0">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div id="quiz">
-            <div id="question">Question</div>
-            <div id="answer1">Answer1</div>
-            <div id="answer2">Answer2</div>
-            <div id="answer3">Answer3</div>
-            <div id="answer4">Answer4</div>
+    </nav>
+
+    <div id="landing-container" class="container">
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h1>Code Quiz</h1>
+            </div>
         </div>
-        <br>
-        <div>
-            <h3 id="score"> Score:</h3>
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <p>Answer all the questions before the timer runs out!  Each wrong answer will subtract 15 seconds from the timer.  The more time left on the clock when all questions are answered, the higher your score!</p>
+            </div>
         </div>
-        <div>
-            <h3 id="timer">Timer:</h3>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button id="start-button" type="button" class="btn btn-secondary btn-lg">Start Quiz</button>
+            </div>
         </div>
-
-        
-        <div id="results"></div>
-
-        <!-- View Highscore - to the left top of page -->
-
-
-        <!-- <h3> High Score </h3> -->
-        <!-- Timer to the right side of page-->
-        <!-- <h4>Timer:</h4> -->
-
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="quiz.js"></script>
-</body>
+    <div id="quiz-container" class="container d-none">
+        
+    </div>
+    <div id="final-container" class="container d-none">
+        <div class="row">
+            <div class="col-12 text-center">
+                <form>
+                    <div class="form-group row">
+                        <label for="final-score" class="col-sm-7 col-form-label">Final Score</label>
+                        <div class="col-sm-5">
+                            <input type="number" readonly class="form-control" id="final-score" placeholder="0">
+                        </div>
+                    </div>
+                </form>
+                <form>
+                    <div class="form-group">
+                      <label for="initials-entry">Initials</label>
+                      <input type="text" class="form-control" id="initials-entry" placeholder="Enter initials">
+                    </div>
+                    <button id="submit-initials" type="button" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="highscore-container" class="container d-none">
+        <div class="row">
+            <div class="col-2"></div>
+            <div id="highscore-table" class="col-8">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>High Scores</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
 
+    <script src="./questions.js"></script>
+    <script src="./quiz.js"></script>
+</body>
 </html>
